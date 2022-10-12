@@ -1,0 +1,163 @@
+﻿@page "/NFTs"
+@using G1TintaEspacial.Client.Servicios
+@using G1TintaEspacial.Client.Pages
+@using G1TintaEspacial.BD.Data.Entidades
+@inject IHttpService http
+
+
+<PageTitle>NFT</PageTitle>
+<!DOCTYPE html>
+<html>
+<head>
+    @*Animaciones*@
+    <link rel="stylesheet" href="https://www.w3schools.com/html/styles.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    @*Estilo de Fuente*@
+    <style>
+        h1 {
+            color: #3332;
+            border: 1px solid #000;
+            font-size: 300%;
+        }
+
+        p {
+            color: #000;
+        }
+    </style>
+    @*boostrap: *@
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NFts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+
+</body>
+</html>
+
+@*<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">¿Por qué NFTs y por qué con tatuajes?</h4>
+                    <p class="text-muted"> Porque creemos que el arte se expresa de todas maneras, y si bien al NFT luego lo puedas vender, creemos que si lo adquiriste fue por algo más, por lo que te damos la opción de que esa experiencia no solo sea un buen recuerdo, si no que además quede plasmado en tu piel</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
+                <strong>Album</strong>
+            </a>
+
+            <a href="#" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle" /></svg>
+                Customers
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+    </div>
+</header>*@
+
+
+
+<main>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            @if(nFTs == null)
+            {
+              <h1>Cargando :)</h1>
+            }
+            else if(nFTs.Count == 0)
+            {
+              <div class="animate__animated animate__zoomIn animate__delay-7s">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="WaitingNft.jpg" />
+                            <div class="card-body">
+
+                                <h4 class="card-title"> NFTs Aún no disponibles </h4>
+                                <p class="card-text"> En espera de que se suban NFTs ¿Quieres ser el primero?</p>
+                                <p class="card-text">$ Proximamente</p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <MatButton Raised="true" Icon="face" Label="¿Quizá tú?"></MatButton>
+                                        
+                                    </div>
+                                    <MatButton Icon="credit_card" Raised="true" OnClick="@RunOnClick" Label="comprar"></MatButton>
+                                </div>
+                                <small class="text-muted">tk: 0000000000</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @foreach (var Item in nFTs)
+                {
+                    <div class="animate__animated animate__zoomIn animate__delay-7s">
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="amongasito.jpg" />
+                                <div class="card-body">
+
+                                    <h4 class="card-title"> @Item.NombreObra </h4>
+                                    <p class="card-text"> @Item.Descripcion</p>
+                                    <p class="card-text">$ @Item.Precio</p>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <MatButton Raised="true" Icon="face" Label="@Item.Autor"></MatButton>
+
+                                        </div>
+                                        <MatButton Icon="credit_card" Raised="true" OnClick="@RunOnClick" Label="comprar"></MatButton>
+                                    </div>
+                                    <small class="text-muted">tk: @Item.Token</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+            
+        </div>
+    </div>
+</main>
+
+@code
+{
+    List<NFT> nFTs;
+
+    public void RunOnClick(MouseEventArgs e)
+    {
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        await Leer();
+    }
+
+    private async Task Leer()
+    {
+        var respuesta = await http.Get<List<NFT>>("api/NFT");
+        if(!respuesta.Error)
+        {
+            nFTs = respuesta.Respuesta;
+        }
+
+    }
+
+}
