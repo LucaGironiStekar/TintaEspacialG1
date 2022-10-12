@@ -74,7 +74,28 @@
 
             @if(nFTs == null)
             {
-              <h1>Cargando :)</h1>
+                <div class="animate__animated animate__zoomIn animate__delay-7s">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="cargando.jpg" />
+                            <div class="card-body">
+
+                                <h4 class="card-title"> Cargando. . . </h4>
+                                <p class="card-text"> Cargando . . .</p>
+                                <p class="card-text">$ Cargando</p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <MatButton Raised="true" Icon="face" Label="Cargando"></MatButton>
+
+                                    </div>
+                                    <MatButton Icon="credit_card" Raised="true" OnClick="@RunOnClick" Label="comprar"></MatButton>
+                                </div>
+                                <small class="text-muted">tk: Cargando...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
             else if(nFTs.Count == 0)
             {
