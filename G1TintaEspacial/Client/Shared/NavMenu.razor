@@ -1,4 +1,44 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">¿Por qué NFTs y por qué con tatuajes?</h4>
+                    <p class="text-muted"> Porque creemos que el arte se expresa de todas maneras, y si bien al NFT luego lo puedas vender, creemos que si lo adquiriste fue por algo más, por lo que te damos la opción de que esa experiencia no solo sea un buen recuerdo, si no que además quede plasmado en tu piel</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Contact</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="Tatuadores" class="text-white">Mi Perfil</a></li>
+                        <li><a href="#" class="text-white">Algo habra aca</a></li>
+                        <li><a href="#" class="text-white">Algo habrá aca: la secuela</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="NFTs" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
+                <strong>NFTs</strong>
+            </a>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="nav-link text-white d-flex align-items-center">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle" /></svg>
+                    Ver más
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+@*<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">HOME</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -29,7 +69,12 @@
             <NavLink class="nav-link" href="NFTs">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> nfts
             </NavLink>
-        </div> 
+        </div>
+
+        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        </div>
+
+        esto estaba comentado
         @*
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="Primera">
@@ -85,11 +130,8 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> ok
             </NavLink>
         </div> *@
-        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-        </div>  
-
-    </nav>
-</div>
+@*    </nav>
+</div>*@
 
 @code {
     private bool collapseNavMenu = true;
