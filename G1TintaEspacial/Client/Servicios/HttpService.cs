@@ -1,13 +1,15 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace G1TintaEspacial.Client.Servicios
 {
     public class HttpService : IHttpService
     {
-        //private readonly HttpClient http;
+        private readonly HttpClient http;
         public HttpService(HttpClient http)
         {
-            Http = http;
+            this.http = http;
         }
 
         public HttpClient Http { get; }
@@ -26,6 +28,41 @@ namespace G1TintaEspacial.Client.Servicios
             }
         }
 
+        public async Task<HttpRespuesta<object>> Post<T>(string url, T enviar)
+        {
+            try
+            {
+                var enviarJson = JsonSerializer.Serialize(enviar);
+                var enviarContent = new StringContent(enviarJson, Encoding.UTF8, "application/json");
+                var respuesta = await http.PostAsync(url, enviarContent);
+                return new HttpRespuesta<object>(null, !respuesta.IsSuccessStatusCode, respuesta);
+            }
+            catch (Exception e) { throw; }
+        }
+
+        public async Task<HttpRespuesta<object>> Put<T>(string url, T enviar)
+        {
+            try
+            {
+                var enviarJson = JsonSerializer.Serialize(enviar);
+                var enviarContent = new StringContent(enviarJson, Encoding.UTF8, "application/json");
+                var respuesta = await http.PutAsync(url, enviarContent);
+                return new HttpRespuesta<object>(null, !respuesta.IsSuccessStatusCode, respuesta);
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
+        }
+
+        public async Task<HttpRespuesta<object>> Delete(string url)
+        {
+            var respuesta = await http.DeleteAsync(url);
+            return new HttpRespuesta<object>(null, !respuesta.IsSuccessStatusCode, respuesta);
+        }
         private async Task<T> DeserealizarRespuesta<T>(HttpResponseMessage response)
         {
             var respuestastring = await response.Content.ReadAsStringAsync();

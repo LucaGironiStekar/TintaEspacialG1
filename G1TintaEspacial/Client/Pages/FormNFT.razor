@@ -1,0 +1,47 @@
+﻿<EditForm Model="nFT" OnValidSubmit="onValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Nombre de la obra</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@nFT.NombreObra" />
+            <ValidationMessage For="@(() => nFT.NombreObra)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Nombre del autor</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@nFT.Autor" />
+            <ValidationMessage For="@(() => nFT.Autor)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Descripcion de su obra</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@nFT.Descripcion" />
+            <ValidationMessage For="@(() => nFT.Descripcion)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Token unico de su obra</label>
+        <div>
+            <InputNumber class="form-control"  @bind-Value="@nFT.Token"  />
+            <ValidationMessage For="@(() => nFT.Token)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Precio de su obra</label>
+        <div>
+            <InputNumber class="form-control"  @bind-Value="@nFT.Precio"  />
+            <ValidationMessage For="@(() => nFT.Precio)" />
+        </div>
+    </div>
+    <MatButton Icon="add" Raised="true" Type="submit" Label="Subir"></MatButton>
+</EditForm>
+
+@code {
+
+    [Parameter] public NFT nFT { get; set; }
+    [Parameter] public EventCallback onValidSubmit { get; set; }
+    [Parameter] public EventCallback onCancel { get; set; }
+
+}
