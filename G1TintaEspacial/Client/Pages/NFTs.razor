@@ -4,7 +4,7 @@
 @using G1TintaEspacial.BD.Data.Entidades
 @inject IHttpService http
 
-
+ 
 <PageTitle>NFT</PageTitle>
 <!DOCTYPE html>
 <html>
@@ -141,7 +141,7 @@
                                             <MatButton Raised="true" Icon="face" Label="@Item.Autor"></MatButton>
 
                                         </div>
-                                        <MatButton Icon="credit_card" Raised="true" OnClick="@RunOnClick" Label="comprar"></MatButton>
+                                        <MatButton Icon="credit_card" Raised="true" @*OnClick="@RunOnClick" *@ Label="comprar"></MatButton>
                                     </div>
                                     <small class="text-muted">tk: @Item.Token</small>
                                 </div>
@@ -159,6 +159,7 @@
 @code
 {
     List<NFT> nFTs;
+
 
     public void RunOnClick(MouseEventArgs e)
     {
