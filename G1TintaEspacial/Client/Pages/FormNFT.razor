@@ -1,5 +1,6 @@
 ﻿<EditForm Model="nFT" OnValidSubmit="onValidSubmit">
     <DataAnnotationsValidator />
+    <hr>
     <div class="form-group">
         <label>Nombre de la obra</label>
         <div>
@@ -7,6 +8,7 @@
             <ValidationMessage For="@(() => nFT.NombreObra)" />
         </div>
     </div>
+    <hr>
     <div class="form-group">
         <label>Nombre del autor</label>
         <div>
@@ -14,6 +16,7 @@
             <ValidationMessage For="@(() => nFT.Autor)" />
         </div>
     </div>
+    <hr>
     <div class="form-group">
         <label>Descripcion de su obra</label>
         <div>
@@ -21,6 +24,7 @@
             <ValidationMessage For="@(() => nFT.Descripcion)" />
         </div>
     </div>
+    <hr>
     <div class="form-group">
         <label>Token unico de su obra</label>
         <div>
@@ -28,15 +32,62 @@
             <ValidationMessage For="@(() => nFT.Token)" />
         </div>
     </div>
+    <hr>
     <div class="form-group">
         <label>Precio de su obra</label>
         <div>
             <InputNumber class="form-control"  @bind-Value="@nFT.Precio"  />
             <ValidationMessage For="@(() => nFT.Precio)" />
         </div>
+        <hr>
+        <div class="form-group">
+            <label>Imagen de su obra en formato de link</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@nFT.Descripcion" />
+                @*<ValidationMessage For="@(() => nFT.Descripcion)" />*@
+                <MatAccordion>
+                    <MatExpansionPanel>
+                        <MatExpansionPanelSummary>
+                            <MatExpansionPanelHeader><MatIcon Icon="help_outline"></MatIcon></MatExpansionPanelHeader>
+                            <MatExpansionPanelSubHeader>Mas Informacion</MatExpansionPanelSubHeader>
+                        </MatExpansionPanelSummary>
+                        <MatExpansionPanelDetails>
+                            <p>
+                                Puede usar el link de su NFT que tenga en alguna platafroma o subirla manualmente a, por ejemplo, Imgur o Pinterest y luego 
+                                pegar el link aqui arriba
+                            </p>
+                        </MatExpansionPanelDetails>
+                    </MatExpansionPanel>
+                </MatAccordion>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label>Link de su NFT en Mercado Pago</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@nFT.Descripcion" />
+                @*<ValidationMessage For="@(() => nFT.Descripcion)" />*@
+                <MatAccordion>
+                    <MatExpansionPanel>
+                        <MatExpansionPanelSummary>
+                            <MatExpansionPanelHeader><MatIcon Icon="help_outline"></MatIcon></MatExpansionPanelHeader>
+                            <MatExpansionPanelSubHeader>Mas Informacion</MatExpansionPanelSubHeader>
+                        </MatExpansionPanelSummary>
+                        <MatExpansionPanelDetails>
+                            <p>
+                                Para cobrar el pago de su nft, vaya a su aplicacion de Mercado Pago, seleccione Cobrar con link de pago, seleccione "Tus productos", "Agregar producto"
+                                y siga las instrucciones, al tener su producto, seleccionelo y cree su link de pago, luego de hacerlo, peguelo aqui arriba
+                            </p>
+                        </MatExpansionPanelDetails>
+                    </MatExpansionPanel>
+                </MatAccordion>
+            </div>
+        </div>
+        <hr>
     </div>
     <MatButton Icon="add" Raised="true" Type="submit" Label="Subir"></MatButton>
 </EditForm>
+
 
 @code {
 
