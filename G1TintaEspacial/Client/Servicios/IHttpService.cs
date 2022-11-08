@@ -2,7 +2,7 @@
 {
     public interface IHttpService
     {
-        HttpClient Http { get; }
+        //HttpClient Http { get; }
 
         Task<HttpRespuesta<T>> Get<T>(string url);
         Task<HttpRespuesta<object>> Post<T>(string url, T enviar);

@@ -89,7 +89,7 @@
                                         <MatButton Raised="true" Icon="face" Label="Cargando"></MatButton>
 
                                     </div>
-                                    <MatButton Icon="credit_card" Raised="true" OnClick="@RunOnClick" Label="comprar"></MatButton>
+                                    <MatButton Icon="credit_card" Raised="true" Label="comprar"></MatButton>
                                 </div>
                                 <small class="text-muted">tk: Cargando...</small>
                             </div>
@@ -114,7 +114,7 @@
                                         <MatButton Raised="true" Icon="face" Label="¿Quizá tú?"></MatButton>
                                         
                                     </div>
-                                    <MatButton Icon="credit_card" Raised="true" OnClick="@RunOnClick" Label="comprar"></MatButton>
+                                    <MatButton Icon="credit_card" Raised="true"  Label="comprar"></MatButton>
                                 </div>
                                 <small class="text-muted">tk: 0000000000</small>
                             </div>
@@ -141,7 +141,7 @@
                                             <MatButton Raised="true" Icon="face" Label="@Item.Autor"></MatButton>
 
                                         </div>
-                                        <MatButton Icon="credit_card" Raised="true" @*OnClick="@RunOnClick" *@ Label="comprar"></MatButton>
+                                        <MatButton Icon="credit_card" Raised="true" Link="https://mpago.la/1UCgtuh" Label="comprar"></MatButton>
                                     </div>
                                     <small class="text-muted">tk: @Item.Token</small>
                                 </div>
@@ -161,11 +161,7 @@
     List<NFT> nFTs;
 
 
-    public void RunOnClick(MouseEventArgs e)
-    {
-
-    }
-
+    
     protected override async Task OnInitializedAsync()
     {
         base.OnInitializedAsync();

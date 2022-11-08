@@ -33,6 +33,8 @@ namespace G1TintaEspacial.Server.Controllers
         }
         #endregion
 
+
+
         [HttpPost]
         public async Task<ActionResult<int>> Post(NFT nft)
         {
@@ -104,43 +106,5 @@ namespace G1TintaEspacial.Server.Controllers
     }
 
 }
-
-    #region GET STRING
-    /*[HttpGet("codigo:string")]
-    public async Task<ActionResult<NFT>> Get(int id)
-    {
-        var Token = await contex.NFTs.Where(e => e.Id == id).FirstOrDefaultAsync();
-        if (NFT = null)
-        {
-            return NotFound($"No existe el NFT con dicha ID={id}");
-        }
-        return NFT;
-    }*/
-    #endregion
-
-
-    //    [HttpGet("id:int")]
-    //    public async Task<ActionResult<Estilos>> Get(int id)
-    //    {
-    //        var Estilos = await contex.Estilos.Where(e => e.Id == id).FirstOrDefaultAsync();
-    //        if (Estilos = null)
-    //        {
-    //            return NotFound($"No existe el estilo con dicha ID={id}");
-    //        }
-    //        return Estilos;
-    //    }
-
-    //    [HttpGet("codigo:string")]
-    //    public async Task<ActionResult<Estilos>> Get(int id)
-    //    {
-    //        var Estilos = await contex.Estilos.Where(e => e.Id == id).FirstOrDefaultAsync();
-    //        if (Estilos = null)
-    //        {
-    //
-    //            return NotFound($"No existe el estilo con dicha ID={id}");
-    //        }
-    //        return Estilos;
-    //    }
-    //}
 
 
