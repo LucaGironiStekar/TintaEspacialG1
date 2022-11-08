@@ -43,7 +43,7 @@
         <div class="form-group">
             <label>Imagen de su obra en formato de link</label>
             <div>
-                <InputText class="form-control" @bind-Value="@nFT.Descripcion" />
+                <InputText class="form-control" @bind-Value="@nFT.ImagenNFT" />
                 @*<ValidationMessage For="@(() => nFT.Descripcion)" />*@
                 <MatAccordion>
                     <MatExpansionPanel>
@@ -65,7 +65,7 @@
         <div class="form-group">
             <label>Link de su NFT en Mercado Pago</label>
             <div>
-                <InputText class="form-control" @bind-Value="@nFT.Descripcion" />
+                <InputText class="form-control" />
                 @*<ValidationMessage For="@(() => nFT.Descripcion)" />*@
                 <MatAccordion>
                     <MatExpansionPanel>
@@ -88,7 +88,7 @@
     <MatButton Icon="add" Raised="true" Type="submit" Label="Subir"></MatButton>
 </EditForm>
 
-
+ 
 @code {
 
     [Parameter] public NFT nFT { get; set; }
