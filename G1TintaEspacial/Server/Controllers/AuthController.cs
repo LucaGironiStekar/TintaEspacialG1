@@ -10,6 +10,7 @@ namespace G1TintaEspacial.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //controler de registro
     public class AuthController : ControllerBase
     {
         public  static Usuario usuario = new Usuario();
