@@ -12,10 +12,10 @@ namespace G1TintaEspacial.Client.Servicios
             this.http = http;
         }
 
-        public HttpClient Http { get; }
+        //public HttpClient Http { get; }
         public async Task<HttpRespuesta<T>> Get<T>(string url)
         {
-            var response = await Http.GetAsync(url);
+            var response = await http.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
                 var respuesta = await DeserealizarRespuesta<T>(response);
