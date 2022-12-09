@@ -25,10 +25,10 @@ namespace G1TintaEspecial.Data.Entidades
         [MaxLength(255, ErrorMessage = "El campo tiene como máximo {1} caracteres.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "El campo es obligatoria.")]
-        [MaxLength(255, ErrorMessage = "El campo tiene como máximo {1} caracteres.")]
+        //[Required(ErrorMessage = "El campo es obligatoria.")]
+        //[MaxLength(255, ErrorMessage = "El campo tiene como máximo {1} caracteres.")]
 
-        public string Contraseña { get; set; }
+        //public string Contraseña { get; set; }
 
         //[Required(ErrorMessage = "La Imagen de perfil es obligatorio.")]
         //[MaxLength(255, ErrorMessage = "El campo tiene como máximo {1} caracteres.")]

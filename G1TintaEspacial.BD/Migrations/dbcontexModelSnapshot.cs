@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-
 #nullable disable
 
 namespace G1TintaEspacial.BD.Migrations
@@ -88,18 +87,13 @@ namespace G1TintaEspacial.BD.Migrations
                     b.ToTable("NFTs");
                 });
 
-            modelBuilder.Entity("TINTAESPACIAL.DataBase.data.Entidades.Usuario", b =>
+            modelBuilder.Entity("G1TintaEspecial.Data.Entidades.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Contraseña")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
 
                     b.Property<byte[]>("ContraseñaHash")
                         .IsRequired()
@@ -133,14 +127,14 @@ namespace G1TintaEspacial.BD.Migrations
 
             modelBuilder.Entity("G1TintaEspacial.BD.Data.Entidades.NFT", b =>
                 {
-                    b.HasOne("TINTAESPACIAL.DataBase.data.Entidades.Usuario", null)
+                    b.HasOne("G1TintaEspecial.Data.Entidades.Usuario", null)
                         .WithMany("NFTs")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TINTAESPACIAL.DataBase.data.Entidades.Usuario", b =>
+            modelBuilder.Entity("G1TintaEspecial.Data.Entidades.Usuario", b =>
                 {
                     b.Navigation("NFTs");
                 });
