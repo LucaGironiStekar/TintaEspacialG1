@@ -1,6 +1,9 @@
-﻿using G1TintaEspacial.Server.Registro;
+﻿using G1TintaEspacial.Data;
+using G1TintaEspacial.Server.Registro;
+using G1TintaEspecial.Data.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,103 +11,137 @@ using System.Security.Cryptography;
 
 namespace G1TintaEspacial.Server.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     //controler de registro
     public class AuthController : ControllerBase
     {
-        public  static Usuario usuario = new Usuario();
         private readonly IConfiguration _configuration;
+        private readonly dbcontex _context;
 
         //private readonly IConfiguration _configuration;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration, dbcontex context)
         {
             this._configuration = configuration;
+            this._context = context;
             //_configuration = configuration;
         }
 
         [HttpPost("registro")]
-        public async Task<ActionResult<Usuario>>Registro(UsuarioDTO request)
+        public async Task<ActionResult<string>> Registro(UsuarioDTO request)
         {
-            CrearContraseñaHash(request.Contraseña, out byte[] contraseñaHash, out byte[] contraseñaSalt);
-            usuario.NombreUsuario = request.NombreUsuario;
-            usuario.ContraseñaHash = contraseñaHash;
-            usuario.ContraseñaSalt = contraseñaSalt;
-            //CONTRASENA HASH:
-            return Ok(usuario);
+
+            var (contraseñaHash, contraseñaSalt) = CrearContraseñaHash(request.Contraseña);
+
+            this._context.Usuarios.Add(new Usuario
+            {
+                NombreUsuario = request.NombreUsuario,
+                ContraseñaHash = contraseñaHash,
+                ContraseñaSalt = contraseñaSalt,
+                Email = "asd",
+            });// error debido a que faltan campos requirdos por completar
+
+            await this._context.SaveChangesAsync();
+
+            ////CONTRASENA HASH:
+            return Ok("Usuario creado correctamente");
 
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UsuarioDTO request)
+        public async Task<ActionResult<object>> Login(UsuarioDTO request)
         {
-            if (usuario.NombreUsuario != request.NombreUsuario)
+
+            Usuario? UserBD = await this._context.Usuarios.FirstOrDefaultAsync(Usuario => Usuario.NombreUsuario == request.NombreUsuario);
+
+            if (UserBD == null)
             {
                 return BadRequest("No se encuentra el usuario");
+            }
 
-            }
-            if (!VerificaContraseñaHash(request.Contraseña, usuario.ContraseñaHash, usuario.ContraseñaSalt))
+            if (!this.VerificaContraseñaHash(request.Contraseña, UserBD.ContraseñaHash, UserBD.ContraseñaSalt))
             {
-                return BadRequest("Contraseña incorrecta.");
+                return BadRequest("Contraseña incorrecta");
             }
+            var Result = new
+            {
+                Token = CrearToken(UserBD), //Creamos un nuevo metodo y obtiene usuario
+                User = new
+                {
+                    Email = UserBD.Email,
+                    Id = UserBD.Id,
+                    NombreUsuario = UserBD.NombreUsuario.ToString(),
+                },
+            };
+
+            return Ok(Result);
 
             //string token = CreateToken(usuario);//aca tambien tira error SWAGGER
 
             //return Ok("AMIS Y ARYA");//forma parte de la prueba
-            return Ok();
+            //return Ok();
         }
 
 
 
         #region Metodos
-        //private string CreateToken(Usuario usuario)//intente de string a int
-        //{
-        //    List<Claim> claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Name, usuario.NombreUsuario)
-        //    };
 
-        //    var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-
-        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-        //    var token = new JwtSecurityToken(
-        //        claims: claims,
-        //        expires: DateTime.Now.AddDays(1),
-        //        signingCredentials: creds);
-
-        //    string jwt = new JwtSecurityTokenHandler().WriteToken(token);//aca tira error el swagger
-        //    return jwt;
-
-        //    //return string.Empty; ;
-        //}
-
-
-        
-
-
-        private void CrearContraseñaHash(string contraseña, out byte[] contraseñaHash, out byte[] contraseñaSalt)
+        private (byte[], byte[]) CrearContraseñaHash(string password)
         {
-            using (var hmac = new HMACSHA512())//instancia criptográfica
-            {
-                contraseñaSalt = hmac.Key;
-                contraseñaHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(contraseña));
+            byte[] passwordHash;
+            byte[] passwordSalt;
 
+            using (var hmac = new HMACSHA512()) //Algoritmo de firma 
+            {
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                passwordSalt = hmac.Key;
             }
 
+            return (passwordHash, passwordSalt);
         }
 
-        private bool VerificaContraseñaHash (string contraseña, byte[] contraseñaHash, byte[] contraseñaSalt)
+        private string CrearToken(Usuario user)
         {
-            using (var hmac = new HMACSHA512(contraseñaSalt))
+            //Permisos para describir la informacion del usuario
+            List<Claim> claims = new List<Claim>
             {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(contraseña));
-                return computedHash.SequenceEqual(contraseñaHash);
+               new Claim(ClaimTypes.Email, user.Email) //Permiso de seguridad
+            };
 
+            //Clave simetrica
+            var key = new SymmetricSecurityKey(
+                System.Text.Encoding.UTF8.GetBytes(
+                 this._configuration.GetSection("AppSettings:Token").Value // Obtenemos dato de appSettings para crear Token
+                )
+            );
+
+
+            //Definimos la configuracion del token 
+            var Credencial = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);//Credenciales de firma 
+
+            //Defino la carga del token 
+            JwtSecurityToken token = new JwtSecurityToken(
+               claims: claims,
+               expires: DateTime.Now.AddHours(2),
+               signingCredentials: Credencial
+            );
+
+            //Defino la cadena de token que quiero que retorne 
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
+        }
+
+        private bool VerificaContraseñaHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
             }
         }
-
 
         #endregion
     }

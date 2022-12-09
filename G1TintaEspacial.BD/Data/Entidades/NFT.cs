@@ -6,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using TINTAESPACIAL.DataBase.data.Entidades;
 
 namespace G1TintaEspacial.BD.Data.Entidades
 {
     //[Index(nameof(Id), Name = "NFT_UQ", IsUnique = true)]
-    public class NFT //: Usuario 
+    public class NFT : Herencia//: Usuario 
     {
-        public int Id { get; set; }
-        public int Token { get; set; }
+
+        [Required(ErrorMessage = "El campo es obligatorio.")]
+        public string Token { get; set; }
+
         [Required(ErrorMessage = "El campo es obligatorio.")]
         public string NombreObra { get; set; }
 
@@ -30,9 +31,12 @@ namespace G1TintaEspacial.BD.Data.Entidades
         [Required(ErrorMessage = "El campo es obligatorio.")]
         public int Precio { get; set; }
 
+        [Required(ErrorMessage = "El campo es obligatorio.")]
+        public string MercadoPago { get; set; }
+
         //agregar relacion de nft con usuarios
 
-        //public int UsuarioId { get; set; } //clave foranea de conecta nft con usuario
+        public int UsuarioId { get; set; } //clave foranea de conecta nft con usuario
 
 
     }

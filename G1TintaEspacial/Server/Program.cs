@@ -1,8 +1,9 @@
+using G1TintaEspacial.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using TINTAESPACIAL.DataBase;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

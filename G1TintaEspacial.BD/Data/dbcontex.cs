@@ -1,14 +1,14 @@
 ﻿using G1TintaEspacial.BD.Data.Entidades;
+using G1TintaEspecial.Data.Entidades;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TINTAESPACIAL.DataBase.data.Entidades;
-//using TINTAESPACIAL.DataBase.Entidades;
 
-namespace TINTAESPACIAL.DataBase
+
+namespace G1TintaEspacial.Data
 { 
     public class dbcontex: DbContext
     {

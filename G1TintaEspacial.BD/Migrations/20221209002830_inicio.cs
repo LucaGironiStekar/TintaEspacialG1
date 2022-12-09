@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace G1TintaEspacial.BD.Migrations
 {
-    public partial class Inicio : Migration
+    public partial class inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,19 +32,13 @@ namespace G1TintaEspacial.BD.Migrations
                     Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Contraseña = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     ImagePerfil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MercadoPago = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefono = table.Column<int>(type: "int", maxLength: 20, nullable: false),
-                    MedioPagoId = table.Column<int>(type: "int", nullable: false)
+                    ContraseñaHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ContraseñaSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Usuarios_MedioPagos_MedioPagoId",
-                        column: x => x.MedioPagoId,
-                        principalTable: "MedioPagos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,13 +47,14 @@ namespace G1TintaEspacial.BD.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Token = table.Column<int>(type: "int", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NombreObra = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Autor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImagenNFT = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<int>(type: "int", nullable: false),
-                    UsuarioId = table.Column<int>(type: "int", nullable: true)
+                    MercadoPago = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +63,8 @@ namespace G1TintaEspacial.BD.Migrations
                         name: "FK_NFTs_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -80,23 +77,18 @@ namespace G1TintaEspacial.BD.Migrations
                 name: "IX_NFTs_UsuarioId",
                 table: "NFTs",
                 column: "UsuarioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_MedioPagoId",
-                table: "Usuarios",
-                column: "MedioPagoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "MedioPagos");
+
+            migrationBuilder.DropTable(
                 name: "NFTs");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "MedioPagos");
         }
     }
 }

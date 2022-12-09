@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using G1TintaEspacial.BD.Data.Entidades;
+using G1TintaEspacial.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TINTAESPACIAL.DataBase;
-using G1TintaEspacial.BD.Data.Entidades;
+
 
 namespace G1TintaEspacial.Server.Controllers
 {
