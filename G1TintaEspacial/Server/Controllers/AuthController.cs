@@ -67,7 +67,7 @@ namespace G1TintaEspacial.Server.Controllers
             }
             var Result = new
             {
-                Token = CrearToken(UserBD), //Creamos un nuevo metodo y obtiene usuario
+                Token = CrearToken(UserBD), //Creamos un nuevo metodo y obtiene usuario.
                 User = new
                 {
                     Email = UserBD.Email,
