@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G1TintaEspacial.BD.Migrations
 {
     [DbContext(typeof(dbcontex))]
-    [Migration("20221209151028_inicio")]
-    partial class inicio
+    [Migration("20221211193532_inicios")]
+    partial class inicios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,11 @@ namespace G1TintaEspacial.BD.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Contraseña")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<byte[]>("ContraseñaHash")
                         .IsRequired()

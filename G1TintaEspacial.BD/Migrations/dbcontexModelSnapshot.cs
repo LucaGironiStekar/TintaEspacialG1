@@ -95,6 +95,11 @@ namespace G1TintaEspacial.BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Contraseña")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<byte[]>("ContraseñaHash")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace G1TintaEspacial.BD.Migrations
 {
-    public partial class inicio : Migration
+    public partial class inicios : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,7 @@ namespace G1TintaEspacial.BD.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreUsuario = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Contraseña = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     ImagePerfil = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Telefono = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     ContraseñaHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
