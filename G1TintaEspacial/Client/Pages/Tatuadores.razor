@@ -1,6 +1,9 @@
 ﻿@page "/Tatuadores"
 @inject IHttpService http
 @inject NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
+
+
 
 <PageTitle>Tatuadores</PageTitle>
 
@@ -96,6 +99,8 @@
 @code{
     private NFT nFT = new NFT();
 
+
+
     private async void SubirNFT()
     {
         var httpRespuesta = await http.Post<NFT>("api/NFT", nFT);
@@ -103,6 +108,12 @@
         {
             var body = httpRespuesta.HttpResponseMessage;
         }
+        await Alert("¡NFT subido correctamente!");
+    }
+
+    private async Task Alert(string Message)
+    {
+        await JsRuntime.InvokeAsync<object>("Alert", Message);
     }
 
     private void Cancelar()

@@ -1,0 +1,66 @@
+﻿<h3>FormRegistro</h3>
+<EditForm Model="usuario" OnValidSubmit="onValidSubmit">
+    <DataAnnotationsValidator />
+    <hr>
+    <div class="form-group">
+        <label>Nombre de usuario</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@usuario.NombreUsuario" />
+            <ValidationMessage For="@(() => usuario.NombreUsuario)" />
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label>E-mail</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@usuario.Email" />
+            <ValidationMessage For="@(() => usuario.Autor)" />
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label>Contraseña</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@usuario.Contraseña" />
+            <ValidationMessage For="@(() => usuario.Contraseña)" />
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label>Teléfono</label>
+        <div>
+            <InputNumber class="form-control" @bind-Value="@usuario.Telefono" />
+            <ValidationMessage For="@(() => usuario.Telefono)" />
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label>Imagen de pergil</label>
+        <div>
+            <InputNumber class="form-control" @bind-Value="@usuario.ImagePerfil" />
+            <ValidationMessage For="@(() => usuario.ImagePerfil)" />
+            <MatAccordion>
+                <MatExpansionPanel>
+                    <MatExpansionPanelSummary>
+                        <MatExpansionPanelHeader><MatIcon Icon="help_outline"></MatIcon></MatExpansionPanelHeader>
+                        <MatExpansionPanelSubHeader>Mas Informacion</MatExpansionPanelSubHeader>
+                    </MatExpansionPanelSummary>
+                    <MatExpansionPanelDetails>
+                        <p>
+                            Puede usar el link de la imagen que quiera o subirla manualmente a, por ejemplo, Imgur o Pinterest y luego
+                            pegar el link aqui arriba
+                        </p>
+                    </MatExpansionPanelDetails>
+                </MatExpansionPanel>
+            </MatAccordion>
+        </div>
+    </div>
+    <MatButton Icon="add" Raised="true" Type="submit" Label="Registrar"></MatButton>
+</EditForm>
+
+@code {
+    [Parameter] public Usuario usuario { get; set; }
+    [Parameter] public EventCallback onValidSubmit { get; set; }
+    [Parameter] public EventCallback onCancel { get; set; }
+
+}

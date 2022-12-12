@@ -121,6 +121,13 @@
     font-weight: bold;
 }
 
+.Registroo {
+    background-color: #8e0fbc40;
+}
+
+.todo {
+    width: 50%;
+}
 /*.logo {*/
  /*   position: absolute;
     width: 538px;

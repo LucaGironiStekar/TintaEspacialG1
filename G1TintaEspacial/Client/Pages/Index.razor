@@ -1,10 +1,13 @@
 ﻿@page "/"
+@inject IHttpService http
+@inject NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
 
 <PageTitle>TINTA ESPACIAL</PageTitle>
 
 
 <section class="py-5 text-center container">
-    <div>
+    <div class="todo">
         <div class="login">
             <div>
                 <img class="logo" src="/images/tintalogo.png" />
@@ -18,10 +21,70 @@
             </div>
         </div>
         <img class="rounded float-right" src="Algorry.gif" />
+        <MatAccordion>
+            <MatExpansionPanel>
+                <MatExpansionPanelSummary>
+                    <MatExpansionPanelHeader>¿No tenés usuario?</MatExpansionPanelHeader>
+                    <MatExpansionPanelSubHeader>Registrate</MatExpansionPanelSubHeader>
+                </MatExpansionPanelSummary>
+                <MatExpansionPanelDetails>
+                    <FormRegistro usuarioESTONOVA="usuario" onCancel="Cancelar" onValidSubmit="RegistrarUsuario" />
+                </MatExpansionPanelDetails>
+            </MatExpansionPanel>
+        </MatAccordion>
         
     </div>
 </section>
  
+
+@code {
+    private Usuario usuario = new Usuario();
+
+    private async void RegistrarUsuario()
+    {
+        var httpRespuesta = await http.Registro<Usuario>("api/[controller]", usuario);
+        if (httpRespuesta.Error)
+        {
+            var body = httpRespuesta.HttpResponseMessage;
+        }
+        await Alert("¡Usuario registrado correctamente!");
+        //navigationManager.NavigateTo("/NFTs");
+    }
+
+    private async Task Alert(string Message)
+    {
+        await JsRuntime.InvokeAsync<object>("Alert", Message);
+    }
+
+    private void Cancelar()
+    {
+
+    }
+
+    #region visibilidad del navmenu
+
+    private bool _navBarVisible = true;
+
+    public Action OnChanged { get; set; }
+
+    //Change state by click on the button
+    public void Toggle()
+    {
+        _navBarVisible = !_navBarVisible;//Change
+        if (OnChanged != null) OnChanged();//Callback for reload
+    }
+
+    //get additional css class for nav bar div
+    public string NavBarClass
+    {
+        get
+        {
+            if (_navBarVisible) return String.Empty;//No additional css class for show nav bar
+            return "d-none";//d-none class will hide the div
+        }
+    }
+    #endregion
+}
 
     @*<div class="nav-item px-3">
         <NavLink class="nav-link" href="todo">

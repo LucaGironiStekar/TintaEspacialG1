@@ -44,7 +44,7 @@
             <label>Imagen de su obra en formato de link</label>
             <div>
                 <InputText class="form-control" @bind-Value="@nFT.ImagenNFT" />
-                @*<ValidationMessage For="@(() => nFT.Descripcion)" />*@
+                <ValidationMessage For="@(() => nFT.ImagenNFT)" />
                 <MatAccordion>
                     <MatExpansionPanel>
                         <MatExpansionPanelSummary>
@@ -65,8 +65,8 @@
         <div class="form-group">
             <label>Link de su NFT en Mercado Pago</label>
             <div>
-                @*<InputText class="form-control" />*@
-                @*<ValidationMessage For="@(() => nFT.Descripcion)" />*@
+                <InputText class="form-control" @bind-Value="@nFT.MercadoPago"/>
+                <ValidationMessage For="@(() => nFT.MercadoPago)" />
                 <MatAccordion>
                     <MatExpansionPanel>
                         <MatExpansionPanelSummary>
