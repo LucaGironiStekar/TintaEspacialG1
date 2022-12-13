@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using G1TintaEspecial.Data.Entidades
 @inject IHttpService http
 @inject NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
@@ -42,7 +43,7 @@
 
     private async void RegistrarUsuario()
     {
-        var httpRespuesta = await http.Registro<Usuario>("api/[controller]", usuario);
+        var httpRespuesta = await http.Post<Usuario>("api/[controller]", usuario);
         if (httpRespuesta.Error)
         {
             var body = httpRespuesta.HttpResponseMessage;

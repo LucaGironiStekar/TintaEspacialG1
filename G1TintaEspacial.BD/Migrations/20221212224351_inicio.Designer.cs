@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G1TintaEspacial.BD.Migrations
 {
     [DbContext(typeof(dbcontex))]
-    [Migration("20221211193532_inicios")]
-    partial class inicios
+    [Migration("20221212224351_inicio")]
+    partial class inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

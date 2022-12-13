@@ -1,4 +1,5 @@
-﻿<h3>FormRegistro</h3>
+﻿@using G1TintaEspecial.Data.Entidades
+<h3>FormRegistro</h3>
 <EditForm Model="usuario" OnValidSubmit="onValidSubmit">
     <DataAnnotationsValidator />
     <hr>
@@ -14,7 +15,7 @@
         <label>E-mail</label>
         <div>
             <InputText class="form-control" @bind-Value="@usuario.Email" />
-            <ValidationMessage For="@(() => usuario.Autor)" />
+            <ValidationMessage For="@(() => usuario.Email)" />
         </div>
     </div>
     <hr>
