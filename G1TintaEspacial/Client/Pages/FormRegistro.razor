@@ -1,8 +1,7 @@
 ﻿@using G1TintaEspecial.Data.Entidades
-<h3>FormRegistro</h3>
+
 <EditForm Model="usuario" OnValidSubmit="onValidSubmit">
     <DataAnnotationsValidator />
-    <hr>
     <div class="form-group">
         <label>Nombre de usuario</label>
         <div>
@@ -38,7 +37,7 @@
     <div class="form-group">
         <label>Imagen de pergil</label>
         <div>
-            <InputNumber class="form-control" @bind-Value="@usuario.ImagePerfil" />
+            <InputText class="form-control" @bind-Value="@usuario.ImagePerfil" />
             <ValidationMessage For="@(() => usuario.ImagePerfil)" />
             <MatAccordion>
                 <MatExpansionPanel>
@@ -56,6 +55,7 @@
             </MatAccordion>
         </div>
     </div>
+    <hr>
     <MatButton Icon="add" Raised="true" Type="submit" Label="Registrar"></MatButton>
 </EditForm>
 

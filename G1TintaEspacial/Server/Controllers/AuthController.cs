@@ -38,6 +38,7 @@ namespace G1TintaEspacial.Server.Controllers
             this._context.Usuarios.Add(new Usuario
             {
                 NombreUsuario = request.NombreUsuario,
+                
                 ContraseñaHash = contraseñaHash,
                 ContraseñaSalt = contraseñaSalt,
                 Email = "asd",

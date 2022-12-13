@@ -36,7 +36,7 @@ namespace G1TintaEspecial.Data.Entidades
         #endregion
 
         [Required(ErrorMessage = "El campo es obligatorio.")]
-        [MaxLength(20, ErrorMessage = "El campo tiene como máximo {1} caracteres.")]
+        //[MaxLength(20, ErrorMessage = "El campo tiene como máximo {1} caracteres.")]
         public int Telefono { get; set; }
 
         //[Required(ErrorMessage = "El campo es obligatoria.")]

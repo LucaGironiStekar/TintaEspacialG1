@@ -18,6 +18,14 @@
     </div>
     <hr>
     <div class="form-group">
+        <label>ID suyo</label>
+        <div>
+            <InputNumber class="form-control" @bind-Value="@nFT.UsuarioId" />
+            <ValidationMessage For="@(() => nFT.UsuarioId)" />
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
         <label>Descripcion de su obra</label>
         <div>
             <InputText class="form-control" @bind-Value="@nFT.Descripcion" />
@@ -28,7 +36,7 @@
     <div class="form-group">
         <label>Token unico de su obra</label>
         <div>
-            <InputNumber class="form-control"  @bind-Value="@nFT.Token"  />
+            <InputText class="form-control"  @bind-Value="@nFT.Token"  />
             <ValidationMessage For="@(() => nFT.Token)" />
         </div>
     </div>
@@ -84,6 +92,7 @@
             </div>
         </div>
         <hr>
+        
     </div>
     <MatButton Icon="add" Raised="true" Type="submit" Label="Subir"></MatButton>
 </EditForm>
